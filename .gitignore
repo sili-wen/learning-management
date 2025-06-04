@@ -5,3 +5,4 @@ client/.clerk/
 client/.env.local
 client/.env
 client/.env.example
+server/node_modules
