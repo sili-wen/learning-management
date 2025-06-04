@@ -1,12 +1,23 @@
 import dotenv from "dotenv";
 import Fastify, { FastifyReply, FastifyRequest } from "fastify";
-import logger from "./logger";
-import requestId from "./requestId";
+import {
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from "fastify-type-provider-zod";
+import logger from "./middleware/logger";
+import requestId from "./middleware/requestId";
 
 dotenv.config();
 
 const startServer = async (port: number) => {
-  const app = Fastify({ logger: logger, genReqId: requestId });
+  const app = Fastify({
+    logger: logger,
+    genReqId: requestId,
+  }).withTypeProvider<ZodTypeProvider>();
+
+  app.setValidatorCompiler(validatorCompiler);
+  app.setSerializerCompiler(serializerCompiler);
 
   await app.register(import("@fastify/helmet"));
   await app.register(import("@fastify/cors"), {
