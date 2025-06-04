@@ -7,3 +7,5 @@ client/.env
 client/.env.example
 server/node_modules
 node_modules/
+server/.env
+*/.env
