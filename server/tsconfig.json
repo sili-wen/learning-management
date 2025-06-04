@@ -10,7 +10,7 @@
       "~/db/*": ["./db/*"]
     },
     "rootDir": ".",
-    "outDir": "dist",
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
     "strict": true,
