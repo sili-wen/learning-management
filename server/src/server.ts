@@ -3,18 +3,18 @@ import fastify from "fastify";
 
 dotenv.config();
 
-const server = fastify();
+const app = fastify();
 
-await server.register(import("@fastify/helmet"));
-await server.register(import("@fastify/cors"), {
+await app.register(import("@fastify/helmet"));
+await app.register(import("@fastify/cors"), {
   origin: true,
 });
 
-server.get("/ping", async (request, reply) => {
-  return "pong\n";
+app.get("/", async (request, reply) => {
+  return { hello: "world" };
 });
 
-server.listen({ port: 8080 }, (err, address) => {
+app.listen({ port: 8080 }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
