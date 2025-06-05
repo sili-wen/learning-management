@@ -14,6 +14,8 @@ declare global {
     notificationFrequency?: "immediate" | "daily" | "weekly";
   }
 
+  type UserRole = "teacher" | "student";
+
   interface User {
     userId: string;
     firstName?: string;
@@ -21,7 +23,7 @@ declare global {
     username?: string;
     email: string;
     publicMetadata: {
-      userType: "teacher" | "student";
+      userType: UserRole;
     };
     privateMetadata: {
       settings?: UserSettings;
