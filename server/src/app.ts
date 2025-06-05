@@ -1,12 +1,16 @@
-import fastifyCors from "@fastify/cors";
-import helmet from "@fastify/helmet";
+import Cors from "@fastify/cors";
+import swagger from "@fastify/swagger";
+import apiReference from "@scalar/fastify-api-reference";
 import dotenv from "dotenv";
 import Fastify, { FastifyReply, FastifyRequest } from "fastify";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
 import {
+  fastifyZodOpenApiPlugin,
+  fastifyZodOpenApiTransform,
+  fastifyZodOpenApiTransformObject,
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider,
-} from "fastify-type-provider-zod";
+} from "fastify-zod-openapi";
 import logger from "./middleware/logger";
 import requestId from "./middleware/requestId";
 import { courseRoutes } from "./routes/courses";
@@ -20,9 +24,33 @@ export const app = async (port: number) => {
   }).withTypeProvider<ZodTypeProvider>();
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
+  await app.register(fastifyZodOpenApiPlugin);
 
-  await app.register(helmet);
-  await app.register(fastifyCors, {
+  await app.register(swagger, {
+    openapi: {
+      info: {
+        title: "Twitter V2 API Documentation",
+        description: "REST API for Twitter application",
+        version: "1.0.0",
+      },
+    },
+    transform: fastifyZodOpenApiTransform,
+    transformObject: fastifyZodOpenApiTransformObject,
+  });
+
+  app.register(apiReference, {
+    routePrefix: "/reference",
+    configuration: {
+      pageTitle: "Twitter API",
+      defaultHttpClient: {
+        targetKey: "node",
+        clientKey: "fetch",
+      },
+      theme: "deepSpace",
+    },
+  });
+
+  await app.register(Cors, {
     origin: true,
   });
 
