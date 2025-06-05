@@ -7,7 +7,7 @@ export const api = createApi({
   endpoints: (build) => ({
     updateUser: build.mutation<User, Partial<User> & { id: string }>({
       query: ({ id, ...updatedUser }) => ({
-        url: "users/${id}",
+        url: `users/${id}`,
         method: "PUT",
         body: updatedUser,
       }),

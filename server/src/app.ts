@@ -1,7 +1,6 @@
 import Cors from "@fastify/cors";
 import swagger from "@fastify/swagger";
 import apiReference from "@scalar/fastify-api-reference";
-import dotenv from "dotenv";
 import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import {
@@ -15,8 +14,6 @@ import logger from "./middleware/logger";
 import requestId from "./middleware/requestId";
 import { courseRoutes } from "./routes/courses";
 import { userRoutes } from "./routes/users";
-
-dotenv.config();
 
 export const app = async (port: number) => {
   const app = Fastify({
@@ -53,6 +50,7 @@ export const app = async (port: number) => {
 
   await app.register(Cors, {
     origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   });
 
   app.register(courseRoutes);
