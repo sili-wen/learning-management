@@ -24,17 +24,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <ClerkProvider>
-    <html lang="en">
-      <body className={`${dmSans.className}`}>
-        <Providers>
-          <Suspense fallback={null}>
-            <div className="root-layout">{children}</div>
-          </Suspense>
-          <Toaster richColors closeButton />
-        </Providers>
-      </body>
-    </html>
-    // </ClerkProvider>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${dmSans.className}`}>
+          <Providers>
+            <Suspense fallback={null}>
+              <div className="root-layout">{children}</div>
+            </Suspense>
+            <Toaster richColors closeButton />
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
