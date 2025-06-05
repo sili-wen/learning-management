@@ -39,8 +39,8 @@ const LoadingSkeleton = () => {
 const Landing = () => {
   const currentImage = useCarousel({ totalImages: 3 });
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
-  console.log("got courses", courses);
 
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -112,7 +112,7 @@ const Landing = () => {
 
         <div className="landing__courses">
           {courses &&
-            courses.slice(0, 5).map((course, index) => (
+            courses.slice(0, 6).map((course, index) => (
               <motion.div
                 key={course.id}
                 initial={{ y: 50, opacity: 0 }}
