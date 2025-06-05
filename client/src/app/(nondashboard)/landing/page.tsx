@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useCarousel } from "@/hooks/useCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCoursesQuery } from "@/state/api";
+import CourseCardSearch from "@/components/CourseCardSearch";
 
 const LoadingSkeleton = () => {
   return (
@@ -107,6 +108,22 @@ const Landing = () => {
               {tag}
             </span>
           ))}
+        </div>
+
+        <div className="landing__courses">
+          {courses &&
+            courses.slice(0, 5).map((course, index) => (
+              <motion.div
+                key={course.id}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ amount: 0.3, once: true }}
+                className="landing__featured"
+              >
+                <CourseCardSearch course={course}></CourseCardSearch>
+              </motion.div>
+            ))}
         </div>
       </motion.div>
     </motion.div>
