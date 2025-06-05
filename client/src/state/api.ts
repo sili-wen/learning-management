@@ -12,5 +12,11 @@ export const api = createApi({
       }),
       providesTags: ["Courses"],
     }),
+
+    getCourse: build.query<Course, string>({
+      query: (id) => `courses/${id}`,
+    }),
   }),
 });
+
+export const { useGetCoursesQuery, useGetCourseQuery } = api;
