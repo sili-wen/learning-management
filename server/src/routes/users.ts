@@ -30,7 +30,7 @@ const updateUserHander = async (req: FastifyRequest) => {
 };
 
 export const userRoutes = async (fastify: FastifyInstance) => {
-  fastify.withTypeProvider<ZodTypeProvider>().patch(
+  fastify.withTypeProvider<ZodTypeProvider>().put(
     "/users/:id",
     {
       schema: { params: IdRequest, body: UserData, tags },
