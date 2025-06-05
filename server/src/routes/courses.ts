@@ -4,6 +4,9 @@ import createError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import { z } from "zod";
 import { courses } from "./constants";
+import { IdRequest } from "./resources";
+
+const tags = ["courses"];
 
 const Course = z.object({
   id: z.string(),
@@ -18,13 +21,11 @@ const Course = z.object({
   status: z.enum(["Draft", "Published"]),
 });
 
-const IdRequest = z.object({ id: z.string().nonempty() });
-
 const ListCourseRequest = z.object({
   category: z.string().optional(),
 });
 
-const listCourses = async (req: FastifyRequest) => {
+const listCoursesHandler = async (req: FastifyRequest) => {
   const { category } = req.query as z.infer<typeof ListCourseRequest>;
   if (!category) {
     return courses;
@@ -32,7 +33,7 @@ const listCourses = async (req: FastifyRequest) => {
   return courses.filter((course) => course.category === category);
 };
 
-const getCourse = async (req: FastifyRequest) => {
+const getCourseHandler = async (req: FastifyRequest) => {
   const { id } = req.params as z.infer<typeof IdRequest>;
   const course = courses.filter((course) => course.id === id);
 
@@ -46,15 +47,15 @@ export const courseRoutes = async (fastify: FastifyInstance) => {
   fastify.withTypeProvider<ZodTypeProvider>().get(
     "/courses/:id",
     {
-      schema: { params: IdRequest },
+      schema: { params: IdRequest, tags },
     },
-    getCourse
+    getCourseHandler
   );
   fastify.withTypeProvider<ZodTypeProvider>().get(
     "/courses",
     {
-      schema: { querystring: ListCourseRequest },
+      schema: { querystring: ListCourseRequest, tags },
     },
-    listCourses
+    listCoursesHandler
   );
 };

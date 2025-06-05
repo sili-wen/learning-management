@@ -14,6 +14,7 @@ import {
 import logger from "./middleware/logger";
 import requestId from "./middleware/requestId";
 import { courseRoutes } from "./routes/courses";
+import { userRoutes } from "./routes/users";
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ export const app = async (port: number) => {
   });
 
   app.register(courseRoutes);
+  app.register(userRoutes);
 
   app.listen({ port }, (err, address) => {
     if (err) {
