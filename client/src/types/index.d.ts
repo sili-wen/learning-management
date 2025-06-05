@@ -17,16 +17,16 @@ declare global {
   type UserRole = "teacher" | "student";
 
   interface User {
-    userId: string;
+    id: string;
     firstName?: string;
     lastName?: string;
     username?: string;
     email: string;
     publicMetadata: {
-      userType: UserRole;
+      userType: string;
     };
+    settings?: UserSettings;
     privateMetadata: {
-      settings?: UserSettings;
       paymentMethods?: Array<PaymentMethod>;
       defaultPaymentMethodId?: string;
       stripeCustomerId?: string;
