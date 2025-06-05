@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCarousel } from "@/hooks/useCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetCourseQuery } from "@/state/api";
+import { useGetCoursesQuery } from "@/state/api";
 
 const LoadingSkeleton = () => {
   return (
@@ -37,7 +37,8 @@ const LoadingSkeleton = () => {
 
 const Landing = () => {
   const currentImage = useCarousel({ totalImages: 3 });
-  const { data: courses, isLoading, isError } = useGetCourseQuery({});
+  const { data: courses, isLoading, isError } = useGetCoursesQuery({});
+  console.log("got courses", courses);
 
   return (
     <motion.div
@@ -86,7 +87,7 @@ const Landing = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ amount: 0.3, once: true }}
-        className="landing__hero"
+        className="landing__featured"
       >
         <h2 className="landing__featured-title">Featured Courses</h2>
         <p className="landing__featured-description">
@@ -99,7 +100,7 @@ const Landing = () => {
             "web development",
             "enterprise IT",
             "react nextjs",
-            "typescript",
+            "javascript",
             "backend development",
           ].map((tag, index) => (
             <span key={index} className="landing__tag">

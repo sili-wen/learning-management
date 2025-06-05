@@ -44,14 +44,14 @@ const getCourse = async (req: FastifyRequest) => {
 
 export const courseRoutes = async (fastify: FastifyInstance) => {
   fastify.withTypeProvider<ZodTypeProvider>().get(
-    "/course/:id",
+    "/courses/:id",
     {
       schema: { params: IdRequest },
     },
     getCourse
   );
   fastify.withTypeProvider<ZodTypeProvider>().get(
-    "/course",
+    "/courses",
     {
       schema: { querystring: ListCourseRequest },
     },
