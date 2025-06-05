@@ -19,7 +19,40 @@ const SharedNotificationSettings = ({
   subtitle = "Manage your notification settings",
 }: SharedNotificationSettingsProps) => {
   const { user } = useUser();
-  const [updatedUser] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
+
+  const currentSettings = user?.publicMetadata?.settings ?? {};
+
+  const methods = useForm<NotificationSettingsFormData>({
+    resolver: zodResolver(notificationSettingsSchema),
+    defaultValues: {
+      courseNotifications: currentSettings.courseNotifications ?? false,
+      emailAlerts: currentSettings.emailAlerts ?? false,
+      smsAlerts: currentSettings.smsAlerts ?? false,
+      notificationFrequency: currentSettings.notificationFrequency ?? "daily",
+    },
+  });
+
+  const onSubmit = async (formData: NotificationSettingsFormData) => {
+    if (!user) return;
+
+    const updatedUser = {
+      id: user.id,
+      publicMetadata: {
+        ...user.publicMetadata,
+        settings: {
+          ...currentSettings,
+          ...formData,
+        },
+      },
+    };
+
+    try {
+      await updateUser(updatedUser);
+    } catch (error) {
+      console.error("Failed to update user settings: ", error);
+    }
+  };
 
   if (!user) return <div>Please sign in to manage your settings.</div>;
 
