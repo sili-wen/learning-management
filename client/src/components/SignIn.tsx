@@ -2,7 +2,7 @@
 
 import { SignIn, useUser } from "@clerk/nextjs";
 import React from "react";
-import { dark } from "@clerk/themes";
+// import { dark } from "@clerk/themes";
 import { useSearchParams } from "next/navigation";
 
 const SignInComponent = () => {
@@ -30,7 +30,7 @@ const SignInComponent = () => {
   return (
     <SignIn
       appearance={{
-        baseTheme: dark,
+        // baseTheme: dark,
         elements: {
           rootBox: "flex justify-center items-center py-5",
           cardBox: "shadow-none",
