@@ -1,7 +1,8 @@
+import { clerkPlugin } from "@clerk/fastify";
 import Cors from "@fastify/cors";
 import swagger from "@fastify/swagger";
 import apiReference from "@scalar/fastify-api-reference";
-import Fastify, { FastifyReply, FastifyRequest } from "fastify";
+import Fastify from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import {
   fastifyZodOpenApiPlugin,
@@ -20,11 +21,17 @@ export const app = async (port: number) => {
     logger: logger,
     genReqId: requestId,
   }).withTypeProvider<ZodTypeProvider>();
+
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
   await app.register(fastifyZodOpenApiPlugin);
+  await app.register(Cors, {
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  });
+  await app.register(clerkPlugin);
 
-  await app.register(swagger, {
+  app.register(swagger, {
     openapi: {
       info: {
         title: "Learning Management API Documentation",
@@ -48,11 +55,7 @@ export const app = async (port: number) => {
     },
   });
 
-  await app.register(Cors, {
-    origin: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  });
-
+  // Register routes last - they depend on the plugins above
   app.register(courseRoutes);
   app.register(userRoutes);
 

@@ -1,16 +1,13 @@
+import { getAuth } from "@clerk/fastify";
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import createError from "http-errors";
+import { StatusCodes } from "http-status-codes";
 import { z } from "zod";
 import { clerkClient } from "../lib/clerk";
 import { IdRequest } from "./resources";
 
 const tags = ["users"];
-
-const User = z.object({
-  id: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-});
 
 const UserData = z.object({
   publicMetadata: z.object({
@@ -30,19 +27,23 @@ const UserData = z.object({
 });
 
 const updateUserHander = async (req: FastifyRequest) => {
-  const { id } = req.params as z.infer<typeof IdRequest>;
+  const { userId } = getAuth(req);
+  if (!userId) {
+    throw createError(StatusCodes.UNAUTHORIZED, "User not authenticated.");
+  }
+
   const userData = req.body as z.infer<typeof UserData>;
 
-  console.log("Updating user", { id, userData });
+  console.log("Updating user", { userId, userData });
 
-  const user = await clerkClient.users.updateUserMetadata(id, {
+  const user = await clerkClient.users.updateUserMetadata(userId, {
     publicMetadata: {
       userData: userData.publicMetadata.userType,
       settings: userData.publicMetadata.settings,
     },
   });
 
-  console.log("Updated user", { id });
+  console.log("Updated user", { userId });
   return user;
 };
 

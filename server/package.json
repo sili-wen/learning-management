@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@clerk/backend": "^2.0.0",
+    "@clerk/fastify": "^2.3.0",
     "@fastify/cors": "^11.0.1",
     "@fastify/swagger": "^9.5.1",
     "@scalar/fastify-api-reference": "^1.31.3",
