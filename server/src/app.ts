@@ -15,6 +15,7 @@ import logger from "./middleware/logger";
 import requestId from "./middleware/requestId";
 import { courseRoutes } from "./routes/courses";
 import { userRoutes } from "./routes/users";
+import { paymentIntentRoutes } from "./routes/paymentIntents";
 
 export const app = async (port: number) => {
   const app = Fastify({
@@ -58,9 +59,9 @@ export const app = async (port: number) => {
     },
   });
 
-  // Register routes last - they depend on the plugins above
   app.register(courseRoutes);
   app.register(userRoutes);
+  app.register(paymentIntentRoutes);
 
   app.listen({ port }, (err, address) => {
     if (err) {

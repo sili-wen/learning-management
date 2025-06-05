@@ -38,7 +38,7 @@ const getCourseHandler = async (req: FastifyRequest) => {
   const course = courses.filter((course) => course.id === id);
 
   if (!course) {
-    throw createError(StatusCodes.NOT_FOUND, "Course not found");
+    throw createError(StatusCodes.UNAUTHORIZED, "User not authenticate.");
   }
   return course;
 };
