@@ -7,14 +7,15 @@ import { courses } from "./constants";
 
 const Course = z.object({
   id: z.string(),
+  teacherId: z.string(),
+  teacherName: z.string(),
   title: z.string(),
-  description: z.string(),
-  imageUrl: z.string().url().optional(),
-  price: z.number(),
-  isPublished: z.boolean().default(false),
-  category: z.string().optional(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  description: z.string().optional(),
+  category: z.string(),
+  image: z.string().optional(),
+  price: z.number().optional(), //cents usd
+  level: z.enum(["Beginner", "Intermediate", "Advanced"]),
+  status: z.enum(["Draft", "Published"]),
 });
 
 const IdRequest = z.object({ id: z.string().nonempty() });
