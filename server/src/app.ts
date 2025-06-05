@@ -29,7 +29,10 @@ export const app = async (port: number) => {
     origin: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   });
-  await app.register(clerkPlugin);
+  await app.register(clerkPlugin, {
+    publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
+    secretKey: process.env.CLERK_SECRET_KEY,
+  });
 
   app.register(swagger, {
     openapi: {
