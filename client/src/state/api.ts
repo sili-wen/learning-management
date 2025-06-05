@@ -1,8 +1,13 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { Clerk } from "@clerk/clerk-js";
+import { toast } from "sonner";
 
-export const api = createApi({
-  baseQuery: fetchBaseQuery({
+const customBaseQuery = async (args: any, api: any, extraOptions: any) => {
+  const result = await fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
     prepareHeaders: async (headers) => {
       const token = await window.Clerk?.session?.getToken();
@@ -11,7 +16,26 @@ export const api = createApi({
         headers.set("Authorization", `Bearer ${token}`);
       }
     },
-  }),
+  })(args, api, extraOptions);
+
+  // if (result.error) {
+  //   const errorMessage =
+  //     (result.error as any)?.data?.message ||
+  //     `Request failed: ${result.error.status || "Unknown error"}`;
+
+  //   toast.error(errorMessage);
+  // }
+
+  const isMutationRequest =
+    (args as FetchArgs).method && (args as FetchArgs).method !== "GET";
+  if (isMutationRequest) {
+    toast.success("Settings updated successfully!");
+  }
+  return result;
+};
+
+export const api = createApi({
+  baseQuery: customBaseQuery,
   reducerPath: "api",
   tagTypes: ["Courses", "Users"],
   endpoints: (build) => ({

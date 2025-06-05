@@ -30,6 +30,7 @@ export default function RootLayout({
           <Providers>
             <Suspense fallback={null}>
               <div className="root-layout">{children}</div>
+              <Toaster richColors closeButton />
             </Suspense>
             <Toaster richColors closeButton />
           </Providers>
