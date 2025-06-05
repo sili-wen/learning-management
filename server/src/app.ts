@@ -29,8 +29,8 @@ export const app = async (port: number) => {
   await app.register(swagger, {
     openapi: {
       info: {
-        title: "Twitter V2 API Documentation",
-        description: "REST API for Twitter application",
+        title: "Learning Management API Documentation",
+        description: "REST API for Learning Management application",
         version: "1.0.0",
       },
     },
@@ -41,7 +41,7 @@ export const app = async (port: number) => {
   app.register(apiReference, {
     routePrefix: "/reference",
     configuration: {
-      pageTitle: "Twitter API",
+      pageTitle: "Learning Management",
       defaultHttpClient: {
         targetKey: "node",
         clientKey: "fetch",
@@ -52,10 +52,6 @@ export const app = async (port: number) => {
 
   await app.register(Cors, {
     origin: true,
-  });
-
-  app.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
-    return { hello: "world" };
   });
 
   app.register(courseRoutes);
