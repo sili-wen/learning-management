@@ -21,7 +21,7 @@ const SelectedCourse = ({ course, handleEnrollNow }: SelectedCourseProps) => {
 
         <div className="selected-course__sections">
           <h4 className="selected-course__sections-title">Course Content</h4>
-          <AccordionSections sections={course.sections} />
+          {/* <AccordionSections sections={course.sections} /> */}
         </div>
 
         <div className="selected-course__footer">
@@ -29,7 +29,7 @@ const SelectedCourse = ({ course, handleEnrollNow }: SelectedCourseProps) => {
             {formatPrice(course.price)}
           </span>
           <Button
-            onClick={() => handleEnrollNow(course.courseId)}
+            onClick={() => handleEnrollNow(course.id)}
             className="bg-primary-700 hover:bg-primary-600"
           >
             Enroll Now

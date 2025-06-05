@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import Image from "next/image";
-import { useCarousel } from "@/hooks/useCarousel";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useGetCoursesQuery } from "@/state/api";
 import CourseCardSearch from "@/components/CourseCardSearch";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useCarousel } from "@/hooks/useCarousel";
+import { useGetCoursesQuery } from "@/state/api";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LoadingSkeleton = () => {
   return (
@@ -37,8 +37,15 @@ const LoadingSkeleton = () => {
 };
 
 const Landing = () => {
+  const router = useRouter();
   const currentImage = useCarousel({ totalImages: 3 });
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
+
+  const handleCourseClick = (id: string) => {
+    router.push(`/search?id=${id}`, {
+      scroll: false,
+    });
+  };
 
   if (isLoading) return <LoadingSkeleton />;
   return (
