@@ -360,3 +360,76 @@ export const courses = [
     updatedAt: new Date("2024-05-30"),
   },
 ];
+
+export const transactions = [
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "c1b6e2a4-d5f8-4e3a-b9c7-1d2e3f4a5b6c",
+    transactionId: "txn_2024_01_001",
+    amount: 4999,
+    paymentProvider: "stripe",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "a2c4e6b8-1d3f-5e7g-9h2i-4j5k6l7m8n9p",
+    transactionId: "txn_2024_01_002",
+    amount: 7999,
+    paymentProvider: "stripe",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "f9e8d7c6-b5a4-3210-9876-5432dcba1098",
+    transactionId: "txn_2024_02_001",
+    amount: 8999,
+    paymentProvider: "paypal",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "b1c2d3e4-f5g6-7h8i-9j0k-l1m2n3o4p5q",
+    transactionId: "txn_2024_02_002",
+    amount: 5999,
+    paymentProvider: "stripe",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "h7i8j9k0-l1m2-n3o4-p5q6-r7s8t9u0v1w",
+    transactionId: "txn_2024_03_001",
+    amount: 6999,
+    paymentProvider: "paypal",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "s9t8u7v6-w5x4-y3z2-a1b0-c9d8e7f6g5",
+    transactionId: "txn_2024_03_002",
+    amount: 11999,
+    paymentProvider: "stripe",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "h4i5j6k7-l8m9-n0o1-p2q3-r4s5t6u7v8",
+    transactionId: "txn_2024_04_001",
+    amount: 7999,
+    paymentProvider: "stripe",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "w9x8y7z6-a5b4-c3d2-e1f0-g9h8i7j6k5",
+    transactionId: "txn_2024_04_002",
+    amount: 12999,
+    paymentProvider: "paypal",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "c1b6e2a4-d5f8-4e3a-b9c7-1d2e3f4a5b6c",
+    transactionId: "txn_2024_05_001",
+    amount: 4999,
+    paymentProvider: "stripe",
+  },
+  {
+    userId: "user_2y4gpnr8qhJdZRawoiQTHBNNUtL",
+    courseId: "a2c4e6b8-1d3f-5e7g-9h2i-4j5k6l7m8n9p",
+    transactionId: "txn_2024_05_002",
+    amount: 7999,
+    paymentProvider: "paypal",
+  },
+];

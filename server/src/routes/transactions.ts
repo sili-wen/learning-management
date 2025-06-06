@@ -1,8 +1,9 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { courses } from "./constants";
+import { courses, transactions } from "./constants";
 import { ulid } from "zod/v4";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { UserIdRequest } from "./resources";
 
 const tags = ["transactions"];
 const CreateTransactionRequest = z.object({
@@ -30,6 +31,17 @@ const createTransactionHandler = async (req: FastifyRequest) => {
   };
 };
 
+const listTransactionsHandler = async (req: FastifyRequest) => {
+  const { userId } = req.query as z.infer<typeof UserIdRequest>;
+  const userTransactions = transactions.filter(
+    (transaction) => transaction.userId === userId
+  );
+
+  return {
+    transactions: userTransactions,
+  };
+};
+
 export const transactionsRoutes = async (fastify: FastifyInstance) => {
   fastify.withTypeProvider<ZodTypeProvider>().post(
     "/transactions",
@@ -37,5 +49,12 @@ export const transactionsRoutes = async (fastify: FastifyInstance) => {
       schema: { body: CreateTransactionRequest, tags },
     },
     createTransactionHandler
+  );
+  fastify.withTypeProvider<ZodTypeProvider>().get(
+    "/transactions",
+    {
+      schema: { query: UserIdRequest, tags },
+    },
+    listTransactionsHandler
   );
 };
