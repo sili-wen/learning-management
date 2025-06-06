@@ -5,7 +5,7 @@ import {
   loadStripe,
   StripeElementsOptions,
 } from "@stripe/stripe-js";
-import { useCreateStripePaymentIntentMutation } from "@/state/api";
+import { useCreatePaymentIntentMutation } from "@/state/api";
 import { useCurrentCourse } from "@/hooks/useCurrentCourse";
 import Loading from "@/components/Loading";
 
@@ -32,7 +32,7 @@ const appearance: Appearance = {
 
 const StripeProvider = ({ children }: { children: React.ReactNode }) => {
   const [clientSecret, setClientSecret] = useState<string | "">("");
-  const [createStripePaymentIntent] = useCreateStripePaymentIntentMutation();
+  const [createStripePaymentIntent] = useCreatePaymentIntentMutation();
   const { course } = useCurrentCourse();
 
   useEffect(() => {

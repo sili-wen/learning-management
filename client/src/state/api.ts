@@ -63,10 +63,10 @@ export const api = createApi({
 
     createPaymentIntent: build.mutation<
       { clientSecret: string },
-      { amount: string }
+      { amount: number }
     >({
       query: ({ amount }) => ({
-        url: `payment-intent/`,
+        url: `payment-intent`,
         method: "POST",
         body: { amount },
       }),
