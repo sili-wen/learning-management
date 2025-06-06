@@ -60,6 +60,17 @@ export const api = createApi({
       query: (id) => `courses/${id}`,
       providesTags: (result, error, id) => [{ type: "Courses", id }],
     }),
+
+    createPaymentIntent: build.mutation<
+      { clientSecret: string },
+      { amount: number }
+    >({
+      query: ({ amount }) => ({
+        url: `payment-intent/`,
+        method: "POST",
+        body: { amount },
+      }),
+    }),
   }),
 });
 
