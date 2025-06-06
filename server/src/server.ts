@@ -1,12 +1,10 @@
 import dotenv from "dotenv";
-
 import serverless from "serverless-http";
 import { app } from "./app";
 
 dotenv.config();
 const isProduction = process.env.NODE_ENV === "production";
-
-const port = Number(process.env.PORT);
+const port = Number(process.env.PORT || 3000);
 
 if (!isProduction) {
   app(port).catch((err) => {
