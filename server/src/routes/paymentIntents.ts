@@ -6,7 +6,7 @@ import { StatusCodes } from "http-status-codes";
 import { z } from "zod";
 import { stripe } from "~/src/lib/stripe";
 
-const tags = ["payment intent"];
+const tags = ["payment intents"];
 
 const PaymentIntent = z.object({
   amount: z.number().int().nonnegative(),
@@ -46,7 +46,7 @@ export const createPaymentIntentHandler = async (req: FastifyRequest) => {
 
 export const paymentIntentRoutes = async (fastify: FastifyInstance) => {
   fastify.withTypeProvider<ZodTypeProvider>().post(
-    "/payment-intent",
+    "/payment-intents",
     {
       schema: { body: PaymentIntent, tags },
     },

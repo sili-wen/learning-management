@@ -16,6 +16,7 @@ import requestId from "./middleware/requestId";
 import { courseRoutes } from "./routes/courses";
 import { userRoutes } from "./routes/users";
 import { paymentIntentRoutes } from "./routes/paymentIntents";
+import { transactionsRoutes } from "./routes/transactions";
 
 export const app = async (port: number) => {
   const app = Fastify({
@@ -62,6 +63,7 @@ export const app = async (port: number) => {
   app.register(courseRoutes);
   app.register(userRoutes);
   app.register(paymentIntentRoutes);
+  app.register(transactionsRoutes);
 
   app.listen({ port }, (err, address) => {
     if (err) {
