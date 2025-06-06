@@ -35,10 +35,10 @@ const listCoursesHandler = async (req: FastifyRequest) => {
 
 const getCourseHandler = async (req: FastifyRequest) => {
   const { id } = req.params as z.infer<typeof IdRequest>;
-  const course = courses.filter((course) => course.id === id);
+  const course = courses.find((course) => course.id === id);
 
   if (!course) {
-    throw createError(StatusCodes.UNAUTHORIZED, "User not authenticate.");
+    throw createError(StatusCodes.NOT_FOUND, "Course not found.");
   }
   return course;
 };

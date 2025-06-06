@@ -36,7 +36,7 @@ export const createPaymentIntentHandler = async (req: FastifyRequest) => {
 
     return { clientSecret: paymentIntent.client_secret };
   } catch (error) {
-    console.log("Error calling Stripe", error);
+    console.log("Stripe Error", error);
     throw createError(
       StatusCodes.INTERNAL_SERVER_ERROR,
       "Payment error. No charge was made."
