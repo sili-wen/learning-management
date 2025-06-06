@@ -28,7 +28,12 @@ const customBaseQuery = async (args: any, api: any, extraOptions: any) => {
 
   const isMutationRequest =
     (args as FetchArgs).method && (args as FetchArgs).method !== "GET";
-  if (isMutationRequest) {
+
+  if (
+    isMutationRequest &&
+    !args.url?.includes("payment-intents") &&
+    !args.url?.includes("transactions")
+  ) {
     toast.success("Settings updated successfully!");
   }
   return result;
