@@ -89,7 +89,7 @@ const UserBilling = () => {
                       key={transaction.transactionId}
                     >
                       <TableCell className="billing__table-cell">
-                        {new Date(transaction.dateTime).toLocaleDateString()}
+                        {new Date(transaction.createdAt).toLocaleDateString()}
                       </TableCell>
                       <TableCell className="billing__table-cell billing__amount">
                         {formatPrice(transaction.amount)}
