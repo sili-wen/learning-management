@@ -28,7 +28,6 @@ const TeacherBilling = () => {
     useGetTransactionsQuery(user?.id || "", {
       skip: !isLoaded || !user,
     });
-
   const filteredData =
     transactions?.filter((transaction) => {
       const matchesTypes =

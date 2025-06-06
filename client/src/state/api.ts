@@ -80,11 +80,13 @@ export const api = createApi({
       }),
     }),
 
-    getTransactions: build.query<{ transactions: Transaction[] }, string>({
+    getTransactions: build.query<Transaction[], string>({
       query: (userId) => ({
         url: "transactions",
         params: { userId },
       }),
+      transformResponse: (response: { transactions: Transaction[] }) =>
+        response.transactions,
       providesTags: ["Transactions"],
     }),
   }),

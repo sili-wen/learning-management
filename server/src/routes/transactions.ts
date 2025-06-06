@@ -6,12 +6,19 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { UserIdRequest } from "./resources";
 
 const tags = ["transactions"];
-const CreateTransactionRequest = z.object({
+const Transaction = z.object({
+  id: z.string().nonempty(),
   userId: z.string().nonempty(),
   courseId: z.string().nonempty(),
   transactionId: z.string().nonempty(),
   amount: z.number().nonnegative(),
   paymentProvider: z.string().nonempty(),
+  createdAt: z.date(),
+});
+
+const CreateTransactionRequest = Transaction.omit({
+  id: true,
+  createdAt: true,
 });
 
 const createTransactionHandler = async (req: FastifyRequest) => {

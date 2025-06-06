@@ -28,11 +28,10 @@ const UserBilling = () => {
     return;
   }
 
-  const { data: response, isLoading: isLoadingTransactions } =
-    useGetTransactionsQuery(user.id ?? "", {
+  const { data: transactions, isLoading: isLoadingTransactions } =
+    useGetTransactionsQuery(user?.id ?? "", {
       skip: !isLoaded || !user,
     });
-  const transactions = response?.transactions;
 
   const filteredData =
     transactions?.filter((transaction) => {
