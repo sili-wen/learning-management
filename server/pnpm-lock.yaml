@@ -47,6 +47,9 @@ importers:
       pino-pretty:
         specifier: ^13.0.0
         version: 13.0.0
+      serverless-http:
+        specifier: ^3.2.0
+        version: 3.2.0
       stripe:
         specifier: ^18.2.1
         version: 18.2.1(@types/node@22.15.29)
@@ -973,6 +976,10 @@ packages:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
     engines: {node: '>=10'}
     hasBin: true
+
+  serverless-http@3.2.0:
+    resolution: {integrity: sha512-QvSyZXljRLIGqwcJ4xsKJXwkZnAVkse1OajepxfjkBXV0BMvRS5R546Z4kCBI8IygDzkQY0foNPC/rnipaE9pQ==}
+    engines: {node: '>=12.0'}
 
   set-cookie-parser@2.7.1:
     resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
@@ -2018,6 +2025,8 @@ snapshots:
   secure-json-parse@4.0.0: {}
 
   semver@7.7.2: {}
+
+  serverless-http@3.2.0: {}
 
   set-cookie-parser@2.7.1: {}
 
