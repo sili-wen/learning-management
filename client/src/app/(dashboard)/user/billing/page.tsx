@@ -24,10 +24,15 @@ import React, { useState } from "react";
 const UserBilling = () => {
   const [paymentType, setPaymentType] = useState("all");
   const { user, isLoaded } = useUser();
-  const { data: transactions, isLoading: isLoadingTransactions } =
-    useGetTransactionsQuery(user?.id || "", {
+  if (!user) {
+    return;
+  }
+
+  const { data: response, isLoading: isLoadingTransactions } =
+    useGetTransactionsQuery(user.id ?? "", {
       skip: !isLoaded || !user,
     });
+  const transactions = response?.transactions;
 
   const filteredData =
     transactions?.filter((transaction) => {

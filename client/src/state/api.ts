@@ -37,7 +37,7 @@ const customBaseQuery = async (args: any, api: any, extraOptions: any) => {
 export const api = createApi({
   baseQuery: customBaseQuery,
   reducerPath: "api",
-  tagTypes: ["Courses", "Users"],
+  tagTypes: ["Courses", "Users", "Transactions"],
   endpoints: (build) => ({
     updateUser: build.mutation<User, Partial<User> & { id: string }>({
       query: ({ id, ...updatedUser }) => ({
@@ -79,6 +79,14 @@ export const api = createApi({
         body: transaction,
       }),
     }),
+
+    getTransactions: build.query<{ transactions: Transaction[] }, string>({
+      query: (userId) => ({
+        url: "transactions",
+        params: { userId },
+      }),
+      providesTags: ["Transactions"],
+    }),
   }),
 });
 
@@ -88,4 +96,5 @@ export const {
   useGetCourseQuery,
   useCreatePaymentIntentMutation,
   useCreateTransactionMutation,
+  useGetTransactionsQuery,
 } = api;
