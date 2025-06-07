@@ -24,14 +24,14 @@ import React, { useState } from "react";
 const UserBilling = () => {
   const [paymentType, setPaymentType] = useState("all");
   const { user, isLoaded } = useUser();
-  if (!user) {
-    return;
-  }
 
   const { data: transactions, isLoading: isLoadingTransactions } =
     useGetTransactionsQuery(user?.id ?? "", {
       skip: !isLoaded || !user,
     });
+
+  if (!isLoaded) return <Loading />;
+  if (!user) return <div>Please sign in to view your billing information.</div>;
 
   const filteredData =
     transactions?.filter((transaction) => {
@@ -39,9 +39,6 @@ const UserBilling = () => {
         paymentType === "all" || transaction.paymentProvider === paymentType;
       return matchesTypes;
     }) || [];
-
-  if (!isLoaded) return <Loading />;
-  if (!user) return <div>Please sign in to view your billing information.</div>;
 
   return (
     <div className="billing">

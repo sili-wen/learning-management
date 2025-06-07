@@ -46,9 +46,10 @@ const ChaptersSidebar = () => {
   };
 
   const handleChapterClick = (sectionId: string, chapterId: string) => {
-    router.push(`/user/courses/${courseId}/chapters/${chapterId}`, {
-      scroll: false,
-    });
+    router.push("/");
+    // router.push(`/user/courses/${courseId}/chapters/${chapterId}`, {
+    //   scroll: false,
+    // });
   };
 
   return (
@@ -62,9 +63,7 @@ const ChaptersSidebar = () => {
           key={section.sectionId}
           section={section}
           index={index}
-          sectionProgress={userProgress.sections.find(
-            (s) => s.sectionId === section.sectionId
-          )}
+          sectionProgress={true}
           chapterId={chapterId as string}
           courseId={courseId as string}
           expandedSections={expandedSections}
@@ -237,7 +236,6 @@ const Chapter = ({
   sectionId,
   sectionProgress,
   chapterId,
-  courseId,
   handleChapterClick,
   updateChapterProgress,
 }: {

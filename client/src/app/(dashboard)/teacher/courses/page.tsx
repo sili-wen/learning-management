@@ -5,14 +5,10 @@ import Loading from "@/components/Loading";
 import TeacherCourseCard from "@/components/TeacherCourseCard";
 import Toolbar from "@/components/Toolbar";
 import { Button } from "@/components/ui/button";
-import {
-  useCreateCourseMutation,
-  useDeleteCourseMutation,
-  useGetCoursesQuery,
-} from "@/state/api";
+import { useGetCoursesQuery } from "@/state/api";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const Courses = () => {
   const router = useRouter();
@@ -22,9 +18,6 @@ const Courses = () => {
     isLoading,
     isError,
   } = useGetCoursesQuery({ category: "all" });
-
-  const [createCourse] = useCreateCourseMutation();
-  const [deleteCourse] = useDeleteCourseMutation();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -43,25 +36,25 @@ const Courses = () => {
   }, [courses, searchTerm, selectedCategory]);
 
   const handleEdit = (course: Course) => {
-    router.push(`/teacher/courses/${course.courseId}`, {
+    router.push(`/}`, {
       scroll: false,
     });
   };
 
   const handleDelete = async (course: Course) => {
-    if (window.confirm("Are you sure you want to delete this course?")) {
-      await deleteCourse(course.courseId).unwrap();
-    }
+    // if (window.confirm("Are you sure you want to delete this course?")) {
+    //   await deleteCourse(course.courseId).unwrap();
+    // }
   };
 
   const handleCreateCourse = async () => {
     if (!user) return;
 
-    const result = await createCourse({
-      teacherId: user.id,
-      teacherName: user.fullName || "Unknown Teacher",
-    }).unwrap();
-    router.push(`/teacher/courses/${result.courseId}`, {
+    // const result = await createCourse({
+    //   teacherId: user.id,
+    //   teacherName: user.fullName || "Unknown Teacher",
+    // }).unwrap();
+    router.push(`/`, {
       scroll: false,
     });
   };
@@ -90,7 +83,7 @@ const Courses = () => {
       <div className="teacher-courses__grid">
         {filteredCourses.map((course) => (
           <TeacherCourseCard
-            key={course.courseId}
+            key={"123"}
             course={course}
             onEdit={handleEdit}
             onDelete={handleDelete}
