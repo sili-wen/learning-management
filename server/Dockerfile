@@ -38,5 +38,5 @@ COPY --from=build /app/package*.json ${LAMBDA_TASK_ROOT}/
 # Set environment variables
 ENV NODE_ENV=production
 
-# Command to start the Lambda function (assuming server.js exports handler)
-CMD ["server.handler"]
+# Command to start the Lambda function
+CMD ["app.handler"]
