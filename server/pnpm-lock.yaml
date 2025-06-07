@@ -14,6 +14,9 @@ importers:
       '@clerk/fastify':
         specifier: ^2.3.0
         version: 2.3.0(fastify@5.3.3)(react@19.1.0)
+      '@fastify/aws-lambda':
+        specifier: ^5.1.4
+        version: 5.1.4
       '@fastify/cors':
         specifier: ^11.0.1
         version: 11.0.1
@@ -294,6 +297,9 @@ packages:
 
   '@fastify/ajv-compiler@4.0.2':
     resolution: {integrity: sha512-Rkiu/8wIjpsf46Rr+Fitd3HRP+VsxUFDDeag0hs9L0ksfnwx2g7SPQQTFL0E8Qv+rfXzQOxBJnjUB9ITUDjfWQ==}
+
+  '@fastify/aws-lambda@5.1.4':
+    resolution: {integrity: sha512-ExyaFMcEJXyUnYktzs5ww/5iDI8LcXMiIMnYZW6aavSIu+W0d08bJhvw8ShHL9wsRrRvfH+BOLdUEVB8oQ4Rew==}
 
   '@fastify/cors@11.0.1':
     resolution: {integrity: sha512-dmZaE7M1f4SM8ZZuk5RhSsDJ+ezTgI7v3HHRj8Ow9CneczsPLZV6+2j2uwdaSLn8zhTv6QV0F4ZRcqdalGx1pQ==}
@@ -1315,6 +1321,8 @@ snapshots:
       ajv: 8.17.1
       ajv-formats: 3.0.1(ajv@8.17.1)
       fast-uri: 3.0.6
+
+  '@fastify/aws-lambda@5.1.4': {}
 
   '@fastify/cors@11.0.1':
     dependencies:

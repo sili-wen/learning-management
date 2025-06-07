@@ -2,8 +2,7 @@ import { clerkPlugin } from "@clerk/fastify";
 import Cors from "@fastify/cors";
 import swagger from "@fastify/swagger";
 import apiReference from "@scalar/fastify-api-reference";
-import Fastify from "fastify";
-import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { FastifyInstance } from "fastify";
 import {
   fastifyZodOpenApiPlugin,
   fastifyZodOpenApiTransform,
@@ -11,32 +10,25 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-zod-openapi";
-import logger from "./middleware/logger";
-import requestId from "./middleware/requestId";
 import { courseRoutes } from "./routes/courses";
-import { userRoutes } from "./routes/users";
 import { paymentIntentRoutes } from "./routes/paymentIntents";
 import { transactionsRoutes } from "./routes/transactions";
+import { userRoutes } from "./routes/users";
 
-export const app = async (port: number) => {
-  const app = Fastify({
-    logger: logger,
-    genReqId: requestId,
-  }).withTypeProvider<ZodTypeProvider>();
-
-  app.setValidatorCompiler(validatorCompiler);
-  app.setSerializerCompiler(serializerCompiler);
-  await app.register(fastifyZodOpenApiPlugin);
-  await app.register(Cors, {
+const app = async (fastify: FastifyInstance) => {
+  fastify.setValidatorCompiler(validatorCompiler);
+  fastify.setSerializerCompiler(serializerCompiler);
+  await fastify.register(fastifyZodOpenApiPlugin);
+  await fastify.register(Cors, {
     origin: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   });
-  await app.register(clerkPlugin, {
+  await fastify.register(clerkPlugin, {
     publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
     secretKey: process.env.CLERK_SECRET_KEY,
   });
 
-  app.register(swagger, {
+  fastify.register(swagger, {
     openapi: {
       info: {
         title: "Learning Management API Documentation",
@@ -48,7 +40,7 @@ export const app = async (port: number) => {
     transformObject: fastifyZodOpenApiTransformObject,
   });
 
-  app.register(apiReference, {
+  fastify.register(apiReference, {
     routePrefix: "/reference",
     configuration: {
       pageTitle: "Learning Management",
@@ -60,16 +52,10 @@ export const app = async (port: number) => {
     },
   });
 
-  app.register(courseRoutes);
-  app.register(userRoutes);
-  app.register(paymentIntentRoutes);
-  app.register(transactionsRoutes);
-
-  app.listen({ port }, (err, address) => {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    console.log(`Server listening at ${address}`);
-  });
+  fastify.register(courseRoutes);
+  fastify.register(userRoutes);
+  fastify.register(paymentIntentRoutes);
+  fastify.register(transactionsRoutes);
 };
+
+export default app;
