@@ -94,6 +94,27 @@ export const api = createApi({
         response.transactions,
       providesTags: ["Transactions"],
     }),
+
+    updateCourse: build.mutation<Course, Partial<Course> & { id: string }>({
+      query: ({ id, ...updatedCourse }) => ({
+        url: `courses/${id}`,
+        method: "PUT",
+        body: updatedCourse,
+      }),
+      invalidatesTags: ["Courses"],
+    }),
+
+    // Add placeholder for upload video URL
+    getUploadVideoUrl: build.mutation<
+      { uploadUrl: string },
+      { fileName: string }
+    >({
+      query: ({ fileName }) => ({
+        url: "upload/video-url",
+        method: "POST",
+        body: { fileName },
+      }),
+    }),
   }),
 });
 
@@ -104,4 +125,6 @@ export const {
   useCreatePaymentIntentMutation,
   useCreateTransactionMutation,
   useGetTransactionsQuery,
+  useUpdateCourseMutation,
+  useGetUploadVideoUrlMutation,
 } = api;

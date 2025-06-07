@@ -71,10 +71,10 @@ const CourseEditor = () => {
 
       const formData = createCourseFormData(data, updatedSections);
 
-      await updateCourse({
-        courseId: id,
-        formData,
-      }).unwrap();
+      // await updateCourse({
+      //   courseId: id,
+      //   formData,
+      // }).unwrap();
 
       refetch();
     } catch (error) {
