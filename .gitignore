@@ -7,7 +7,7 @@ client/.env.production
 client/.clerk/
 
 server/.env
-
+server/dist
 client/.next
 
 .DS_Store
