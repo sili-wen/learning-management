@@ -21,7 +21,8 @@ const SharedNotificationSettings = ({
   const { user } = useUser();
   const [updateUser] = useUpdateUserMutation();
 
-  const currentSettings = user?.publicMetadata?.settings ?? {};
+  const currentSettings = (user?.publicMetadata?.settings ??
+    {}) as Partial<UserSettings>;
 
   const methods = useForm<NotificationSettingsFormData>({
     resolver: zodResolver(notificationSettingsSchema),
@@ -39,7 +40,7 @@ const SharedNotificationSettings = ({
     const updatedUser = {
       id: user.id,
       publicMetadata: {
-        ...user.publicMetadata,
+        userType: (user.publicMetadata as any)?.userType || "student",
         settings: {
           ...currentSettings,
           ...formData,

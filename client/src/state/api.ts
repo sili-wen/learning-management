@@ -42,7 +42,7 @@ const customBaseQuery = async (args: any, api: any, extraOptions: any) => {
 export const api = createApi({
   baseQuery: customBaseQuery,
   reducerPath: "api",
-  tagTypes: ["Courses", "Users", "Transactions"],
+  tagTypes: ["Courses", "Users", "Transactions", "CourseProgress"],
   endpoints: (build) => ({
     updateUser: build.mutation<User, Partial<User> & { id: string }>({
       query: ({ id, ...updatedUser }) => ({
@@ -115,6 +115,33 @@ export const api = createApi({
         body: { fileName },
       }),
     }),
+
+    // Course Progress endpoints
+    getUserCourseProgress: build.query<
+      UserCourseProgress,
+      { userId: string; courseId: string }
+    >({
+      query: ({ userId, courseId }) => ({
+        url: `users/${userId}/courses/${courseId}/progress`,
+      }),
+      providesTags: ["CourseProgress"],
+    }),
+
+    updateUserCourseProgress: build.mutation<
+      UserCourseProgress,
+      {
+        userId: string;
+        courseId: string;
+        progressData: Partial<UserCourseProgress>;
+      }
+    >({
+      query: ({ userId, courseId, progressData }) => ({
+        url: `users/${userId}/courses/${courseId}/progress`,
+        method: "PUT",
+        body: progressData,
+      }),
+      invalidatesTags: ["CourseProgress"],
+    }),
   }),
 });
 
@@ -127,4 +154,6 @@ export const {
   useGetTransactionsQuery,
   useUpdateCourseMutation,
   useGetUploadVideoUrlMutation,
+  useGetUserCourseProgressQuery,
+  useUpdateUserCourseProgressMutation,
 } = api;
