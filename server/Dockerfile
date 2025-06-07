@@ -1,5 +1,5 @@
-# Use the AWS Lambda Node.js 20 base image
-FROM public.ecr.aws/lambda/nodejs:20 AS build
+# Use the AWS Lambda Node.js 20 base image for x86_64
+FROM --platform=linux/amd64 public.ecr.aws/lambda/nodejs:20 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -22,7 +22,7 @@ RUN pnpm run build
 RUN pnpm prune --production
 
 # Use a second stage to prepare the production image
-FROM public.ecr.aws/lambda/nodejs:20
+FROM --platform=linux/amd64 public.ecr.aws/lambda/nodejs:20
 
 # Install pnpm in production image
 RUN npm install -g pnpm
