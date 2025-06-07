@@ -39,4 +39,4 @@ COPY --from=build /app/package*.json ${LAMBDA_TASK_ROOT}/
 ENV NODE_ENV=production
 
 # Command to start the Lambda function
-CMD ["app.handler"]
+CMD ["server.handler"]
